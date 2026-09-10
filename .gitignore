@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Production builds
+dist/
+*/dist/
+build/
+
+# Local databases & logs
+*.sqlite
+*.sqlite-journal
+*.log
+database/*.sqlite
+database/*.sqlite-journal
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Evidence uploads (keep placeholder directory)
+server/uploads/*
+!server/uploads/.gitkeep
+
+# Operating System & IDE Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Antigravity temporary directories
+.system_generated/
+
+# Internal project plans & assignment guides (do not commit)
+*plan*.md
+*Plan*.md
+Campus_Cybersecurity_Incident_Platform_Complete_Plan_2.md
