@@ -5,10 +5,10 @@ import StudentDashboard from './pages/StudentDashboard';
 import AnalystDashboard from './pages/AnalystDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import ThreatScannerModal from './components/ThreatScannerModal';
-import { Shield, Lock, Activity, Sparkles, UserPlus, LogIn } from 'lucide-react';
+import { Shield, UserPlus, LogIn } from 'lucide-react';
 
 function AppContent() {
-  const { user, token, loading, login, register, demoAccounts, switchAccount } = useAuth();
+  const { user, token, loading, login, register } = useAuth();
   const [activeTab, setActiveTab] = useState('student');
   const [isScannerOpen, setIsScannerOpen] = useState(false);
 
@@ -75,7 +75,7 @@ function AppContent() {
         justifyContent: 'center',
         padding: '2rem'
       }}>
-        <div className="glass-panel" style={{ width: '100%', maxWidth: '500px', padding: '2.5rem', position: 'relative' }}>
+        <div className="glass-panel" style={{ width: '100%', maxWidth: '480px', padding: '2.5rem', position: 'relative' }}>
           {/* Brand */}
           <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
             <div style={{
@@ -98,31 +98,6 @@ function AppContent() {
             <p style={{ color: '#94a3b8', fontSize: '0.85rem', marginTop: '0.3rem' }}>
               Campus Cybersecurity Incident Reporting & Mini-SOC Platform
             </p>
-          </div>
-
-          {/* Quick Demo Login Buttons */}
-          <div style={{
-            background: 'rgba(6, 182, 212, 0.08)',
-            border: '1px solid rgba(6, 182, 212, 0.25)',
-            borderRadius: '10px',
-            padding: '1rem',
-            marginBottom: '1.75rem'
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.75rem', fontWeight: 700, color: '#38bdf8', textTransform: 'uppercase' }}>
-              <Sparkles size={14} /> Instant Demo Access (1-Click Login):
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.5rem', marginTop: '0.75rem' }}>
-              {demoAccounts.slice(0, 3).map(acc => (
-                <button
-                  key={acc.id}
-                  onClick={() => switchAccount(acc)}
-                  className="btn btn-sm btn-ghost"
-                  style={{ fontSize: '0.75rem', padding: '0.4rem' }}
-                >
-                  {acc.role_name === 'ADMIN' ? 'Admin' : acc.role_name === 'ANALYST' ? 'Analyst' : 'Student'}
-                </button>
-              ))}
-            </div>
           </div>
 
           {authError && (

@@ -110,15 +110,15 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 👥 Demo Personas (1-Click Switcher)
+## 👥 Default Test Accounts
 
-The platform includes pre-populated test data and an instant **Role Switcher** in the navigation header:
+The platform includes pre-populated test data for each role. You can log in using standard credentials:
 
-| Role | Email | Password | Pre-populated Scenarios |
+| Role | Email | Password | Access Scope |
 |---|---|---|---|
-| **Student Demo** | `student@campus.edu` | `password123` | Phishing Report (#1), Rogue AP Report (#5) |
-| **SOC Analyst Demo** | `analyst@campus.edu` | `password123` | Active Incident Queue, Investigation Dossiers, Notes |
-| **Admin Demo** | `admin@campus.edu` | `password123` | Visual Analytics, User Controls, Audit Logs |
+| **Student** | `student@campus.edu` | `password123` | Phishing Report (#1), Rogue AP Report (#5) |
+| **SOC Analyst** | `analyst@campus.edu` | `password123` | Active Incident Queue, Investigation Dossiers, Notes |
+| **Administrator** | `admin@campus.edu` | `password123` | Visual Analytics, User Controls, Audit Logs |
 
 ---
 

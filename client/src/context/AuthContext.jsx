@@ -5,7 +5,6 @@ const AuthContext = createContext(null);
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('sentrix_token') || null);
-  const [demoAccounts, setDemoAccounts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Fetch current user if token exists
@@ -36,32 +35,6 @@ export function AuthProvider({ children }) {
 
     loadUser();
   }, [token]);
-
-  // Load demo accounts list for rapid 1-click evaluation
-  useEffect(() => {
-    async function loadDemoAccounts() {
-      try {
-        const res = await fetch('/api/auth/demo-accounts');
-        const data = await res.json();
-        if (data.success && data.accounts) {
-          setDemoAccounts(data.accounts);
-          // If no user is logged in, default to Analyst Demo for the best SOC experience
-          if (!localStorage.getItem('sentrix_token') && data.accounts.length > 0) {
-            const defaultUser = data.accounts.find(a => a.email === 'analyst@campus.edu') || data.accounts[0];
-            if (defaultUser && defaultUser.token) {
-              setToken(defaultUser.token);
-              localStorage.setItem('sentrix_token', defaultUser.token);
-              setUser(defaultUser);
-            }
-          }
-        }
-      } catch (err) {
-        console.error('[Demo Accounts Error]:', err);
-      }
-    }
-
-    loadDemoAccounts();
-  }, []);
 
   const login = async (email, password) => {
     const res = await fetch('/api/auth/login', {
@@ -111,25 +84,14 @@ export function AuthProvider({ children }) {
     setUser(null);
   };
 
-  // Instant switch account helper
-  const switchAccount = (account) => {
-    if (account && account.token) {
-      localStorage.setItem('sentrix_token', account.token);
-      setToken(account.token);
-      setUser(account);
-    }
-  };
-
   return (
     <AuthContext.Provider value={{
       user,
       token,
       loading,
-      demoAccounts,
       login,
       register,
-      logout,
-      switchAccount
+      logout
     }}>
       {children}
     </AuthContext.Provider>

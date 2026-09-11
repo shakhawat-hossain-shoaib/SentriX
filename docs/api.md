@@ -12,7 +12,6 @@ All API routes are prefixed with `/api`. Protected routes require `Authorization
 | `POST` | `/api/auth/login` | Public | Authenticate user & return JWT token |
 | `GET` | `/api/auth/me` | Authenticated | Retrieve current user profile |
 | `POST` | `/api/auth/logout` | Authenticated | Terminate session & log audit trail |
-| `GET` | `/api/auth/demo-accounts` | Public | Fetch test accounts for 1-click evaluation |
 
 ---
 

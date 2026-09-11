@@ -162,31 +162,10 @@ async function logout(req, res) {
   return res.json({ success: true, message: 'Logged out successfully.' });
 }
 
-// Quick demo switch helper for testing and evaluation
-async function getDemoAccounts(req, res) {
-  try {
-    const [users] = await query(
-      `SELECT u.id, u.name, u.email, u.role_id, r.name as role_name, u.department
-       FROM users u
-       LEFT JOIN roles r ON u.role_id = r.id
-       ORDER BY u.role_id ASC, u.id ASC`
-    );
-
-    const accounts = users.map(u => ({
-      ...u,
-      token: signToken(u)
-    }));
-
-    return res.json({ success: true, accounts });
-  } catch (err) {
-    return res.status(500).json({ success: false, message: 'Error fetching demo accounts.', error: err.message });
-  }
-}
-
 module.exports = {
   register,
   login,
   getMe,
-  logout,
-  getDemoAccounts
+  logout
 };
+

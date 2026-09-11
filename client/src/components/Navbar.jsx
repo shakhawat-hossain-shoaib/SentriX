@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Shield, Bell, User, Terminal, LogOut, ChevronDown, Check, Activity, Sparkles, Layers } from 'lucide-react';
+import { Shield, Bell, User, Terminal, LogOut, Activity, Layers } from 'lucide-react';
 
 export default function Navbar({ activeTab, setActiveTab, onOpenScanner }) {
-  const { user, logout, demoAccounts, switchAccount } = useAuth();
-  const [showRoleDropdown, setShowRoleDropdown] = useState(false);
+  const { user, logout } = useAuth();
   const [showNotifs, setShowNotifs] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
@@ -140,80 +139,10 @@ export default function Navbar({ activeTab, setActiveTab, onOpenScanner }) {
 
         {/* Right side controls: Role Quick-Switcher & Profile */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          {/* Quick Demo Role Switcher Dropdown */}
-          <div style={{ position: 'relative' }}>
-            <button
-              onClick={() => setShowRoleDropdown(!showRoleDropdown)}
-              className="btn btn-sm btn-ghost"
-              style={{
-                background: 'rgba(6, 182, 212, 0.12)',
-                border: '1px solid rgba(6, 182, 212, 0.35)',
-                color: '#38bdf8',
-                gap: '0.4rem',
-                fontSize: '0.8rem'
-              }}
-            >
-              <Sparkles size={14} color="#06b6d4" />
-              <span>Role: <strong>{userRole}</strong></span>
-              <ChevronDown size={14} />
-            </button>
-
-            {showRoleDropdown && (
-              <div style={{
-                position: 'absolute',
-                right: 0,
-                top: 'calc(100% + 8px)',
-                background: '#0e1628',
-                border: '1px solid rgba(6, 182, 212, 0.35)',
-                borderRadius: '12px',
-                padding: '0.5rem',
-                minWidth: '240px',
-                boxShadow: '0 15px 40px rgba(0,0,0,0.8), 0 0 25px rgba(6, 182, 212, 0.15)',
-                zIndex: 100
-              }}>
-                <div style={{ padding: '0.4rem 0.6rem', fontSize: '0.7rem', color: '#94a3b8', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
-                  Switch Test Persona (1-Click):
-                </div>
-                {demoAccounts.map(acc => {
-                  const isCurrent = acc.id === user?.id;
-                  return (
-                    <div
-                      key={acc.id}
-                      onClick={() => {
-                        switchAccount(acc);
-                        setShowRoleDropdown(false);
-                        if (acc.role_name === 'ADMIN') setActiveTab('admin');
-                        else if (acc.role_name === 'ANALYST') setActiveTab('analyst');
-                        else setActiveTab('student');
-                      }}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        padding: '0.6rem 0.75rem',
-                        borderRadius: '8px',
-                        cursor: 'pointer',
-                        background: isCurrent ? 'rgba(6, 182, 212, 0.2)' : 'transparent',
-                        color: isCurrent ? '#38bdf8' : '#e2e8f0',
-                        fontSize: '0.85rem',
-                        transition: 'background 0.15s ease'
-                      }}
-                      onMouseEnter={(e) => { if (!isCurrent) e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)'; }}
-                      onMouseLeave={(e) => { if (!isCurrent) e.currentTarget.style.background = 'transparent'; }}
-                    >
-                      <div>
-                        <div style={{ fontWeight: 600 }}>{acc.name}</div>
-                        <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>
-                          {acc.role_name} • {acc.email}
-                        </div>
-                      </div>
-                      {isCurrent && <Check size={16} color="#06b6d4" />}
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
+          {/* User Role Badge */}
+          <span className={`badge ${userRole === 'ADMIN' ? 'badge-purple' : userRole === 'ANALYST' ? 'badge-cyan' : 'badge-low'}`} style={{ fontSize: '0.75rem', padding: '0.35rem 0.65rem' }}>
+            {userRole}
+          </span>
 
           {/* Notifications Bell */}
           <div style={{ position: 'relative' }}>
